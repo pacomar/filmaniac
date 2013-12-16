@@ -35,7 +35,7 @@
 								<li class="casilla"><a href="/peliculas/">{% trans "Peliculas" %}</a></li>
 								<li class="casilla"><a href="/actores/">{% trans "Actores" %}</a></li>
 								<li class="casilla"><a href="/directores/">{% trans "Directores" %}</a></li>
-								<li class="casilla"><a href="/categorias/">{% trans "Categorias" %}</a></li>
+								<li class="casilla"><a href="/categorias/">{% trans "Categorías" %}</a></li>
 								<li class="casilla"><a href="/contribuir/">{% trans "Contribuir" %}</a></li>
 							</ul>
 						</div>
@@ -63,5 +63,6 @@
 			    return this.href == url;
 			}).parent().addClass('active');
 	    </script>
+	    {% block script%}{% endblock %}
 	</body>
 </html>

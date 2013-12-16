@@ -5,10 +5,10 @@
 
 <div class="pelicula_detallada">
 	<div class="titulo_pelicula">
-		Titulo: <a href="/pelicula/{{pelicula.id}}">{{pelicula.titulo}}</a><br>
+		Título: <a href="/pelicula/{{pelicula.id}}">{{pelicula.titulo}}</a><br>
 		Director: <a href="/director/{{pelicula.director.id}}">{{pelicula.director.nombre}} {{pelicula.director.apellidos}}</a> <br>
 		Estreno: {{pelicula.anio}} <br>
-		Genero: 
+		Género: 
 			<ul>
 				{% for c in pelicula.categorias.all %}
 					<li><a href="/categoria/{{c.id}}">{{c.nombre}}</a></li>
@@ -17,25 +17,15 @@
 	</div>
 	<img src="{{MEDIA_URL}}{{pelicula.caratula}}" alt="" class="caratula">
 	<div class="votacion">
-		Puntuacion Media: {{puntuacion}} <br>
-		Votaciones:
-		<ul>
-			{% for v in pelicula.votaciones.all %}
-				<li>{{v.voto}}</a></li>
-			{% endfor %}
-		</ul>
+		Puntuación Media: {{puntuacion}} <br>
 		{% if not voto %}
 			<form action="/vota/{{pelicula.id}}" method="POST">{% csrf_token %}
-				Puntuacion: 1<input type="range" name="valoracion" min="1" max="5" id="valoracion">5
+				1<input type="range" name="valoracion" min="1" max="5" id="valoracion">5 <br>
 				<input type="submit" id="submit" name="submit" value="Votar">
 			</form>
 		{% else %}
 			Tu voto ha sido: {{voto.voto}} <a href="/eliminavoto/{{voto.id}}">Eliminar</a>
 		{% endif %}
-	</div>
-	<div class="resumen">
-		<h3>Resumen:</h3> 
-		<p>{{pelicula.resumen}}</p>
 	</div>
 	<div class="reparto">
 		<h3>Reparto:</h3>
@@ -44,6 +34,24 @@
 				<li><a href="/actor/{{a.id}}">{{a.nombre}} {{a.apellidos}}</a></li>
 			{% endfor %}
 		</ul>
+	</div>
+	<div class="resumen">
+		<h3>Resumen:</h3> 
+		<p>{{pelicula.resumen}}</p>
+	</div>
+</div>
+<div class="comentarios">
+	<h3>Comentarios:</h3>
+		<ul>
+			{% for c in pelicula.comentarios.all %}
+				<li><a href="/perfil/{{c.autor.usuario}}">{{c.autor.usuario}}</a>: {{c.comentario}} <font color="#A9A4A4">{{c.fecha_modificacion}}</font></li>
+			{% endfor %}
+		</ul>
+	<div class="comenta">
+		<form class="form-signin" method="post" action="/comenta_pelicula/{{pelicula.id}}">{% csrf_token %}
+			<textarea cols="40" id="id_comentario" name="comentario" rows="5" value="{{formulario.coemntario.value}}" placeholder="Comentario..."></textarea>
+			<button class="btn btn-large btn-primary" type="submit">Comenta</button>
+		</form>
 	</div>
 </div>
 {% endblock %}

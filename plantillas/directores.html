@@ -3,11 +3,14 @@
 
 {% block contenido %}
 {% for d in directores %}
-	<fieldset>
-			<ul>
-				<li>Nombre: <a href="/director/{{d.id}}">{{d.nombre}} {{d.apellidos}}</a></li>
-				<li>Foto: proximamente</li>
-			</ul>
-	</fieldset>
+	<div class="resultado_busqueda">
+		<img src="{{MEDIA_URL}}{{d.foto}}" alt="" class="resultado_imagen">
+		<div class="resultado_nombre">
+			<a href="/director/{{d.id}}">{{d.nombre}} {{d.apellidos}}</a>
+		</div>
+		<div class="resultado_descripcion">
+			{{d.biografia}}
+		</div>
+	</div>
 {% endfor %}
 {% endblock %}

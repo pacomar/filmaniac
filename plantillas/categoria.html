@@ -4,11 +4,14 @@
 {% block contenido %}
 	{{categoria}}	
 	{% for p in peliculas %}
-		<fieldset>	
-			<ul>
-				<li>Titulo: <a href="/pelicula/{{p.id}}">{{p.titulo}}</a></li>
-				<li>Caratula: proximamente</li>
-			</ul>
-		</fieldset>
+		<div class="resultado_busqueda">
+			<img src="{{MEDIA_URL}}{{p.caratula}}" alt="" class="resultado_imagen">
+			<div class="resultado_nombre">
+				<a href="/pelicula/{{p.id}}">{{p.titulo}}</a>
+			</div>
+			<div class="resultado_descripcion">
+				{{p.resumen}}
+			</div>
+		</div>
 	{% endfor %}
 {% endblock %}

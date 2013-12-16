@@ -4,12 +4,12 @@
 {% block contenido %}
 <form method="post" id="formPelicula" class="form-signin formlargo">{% csrf_token %}
   <h2 class="form-signin-heading">Introduce una película</h2>
-  <label for="id_titulo">Titulo:</label> <input id="id_titulo" maxlength="50" name="titulo" type="text" />
+  <label for="id_titulo">Título:</label> <input id="id_titulo" maxlength="50" name="titulo" type="text" />
   <label for="id_anio">Año:</label> <input id="id_anio" name="anio" type="date" />
   <label for="id_reparto">Reparto:</label> {{formulario.reparto}}
   <label for="id_director">Director:</label> {{formulario.director}}
   <label for="id_resumen">Resumen:</label> <textarea cols="40" id="id_resumen" name="resumen" rows="5"></textarea>
-  <label for="id_categorias">Categorias:</label> {{formulario.categorias}}
+  <label for="id_categorias">Categorías:</label> {{formulario.categorias}}
   <label for="id_caratula">Caratula:</label> <input id="id_caratula" name="caratula" type="file" />
   <button class="btn btn-large btn-primary" type="submit">Introducir</button>
 </form>

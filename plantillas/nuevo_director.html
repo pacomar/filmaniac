@@ -6,9 +6,10 @@
 	<h2 class="form-signin-heading">Introduce un Director</h2>
 	<label for="id_nombre">Nombre:</label> <input id="id_nombre" maxlength="50" name="nombre" type="text" />
 	<label for="id_apellidos">Apellidos:</label> <input id="id_apellidos" maxlength="180" name="apellidos" type="text" />
-	<label for="id_biografia">Biografia:</label> <textarea cols="40" id="id_biografia" name="biografia" rows="5">
-	</textarea>
+	<label for="id_fecha_nacimiento">Fecha de Nacimiento:</label> <input id="id_fecha_nacimiento" name="fecha_nacimiento" type="date" />
+	<label for="id_nacionalidad">Nacionalidad:</label> {{formulario.nacionalidad}}
+	<label for="id_biografia">Biografía:</label> <textarea cols="40" id="id_biografia" name="biografia" rows="5"></textarea>
 	<label for="id_foto">Foto:</label> <input id="id_foto" name="foto" type="file" /> <br>
-	<button class="btn btn-large btn-primary" type="submit">Sign up</button>
+	<button class="btn btn-large btn-primary" type="submit">Introducir</button>
 </form>
 {% endblock %}

@@ -5,12 +5,13 @@
 <div class="perfil_actor">
 	<div class="nombre_actor">
 		Nombre:<a href="/actor/{{actor.id}}">{{actor.nombre}} {{actor.apellidos}}</a> <br>
-		Edad: XX <br>
-		Nacionalidad: XX
+		Fecha de namiento: {{actor.fecha_nacimiento}} <br>
+		Edad: {{edad}} <br> <br>
+		Nacionalidad: {{actor.nacionalidad}}
 	</div>
 	<img src="{{MEDIA_URL}}{{actor.foto}}" alt="" class="retrato">
 	<div class="biografia">
-		<h3>Biografia:</h3> 
+		<h3>Biografía:</h3> 
 		<p>{{actor.biografia}}</p>
 	</div>
 	<div class="peliculas_actua">
@@ -20,6 +21,20 @@
 				<li><a href="/pelicula/{{p.id}}">{{p.titulo}}</a></li>
 			{% endfor %}
 		</ul>
+	</div>
+</div>
+<div class="comentarios">
+	<h3>Comentarios:</h3>
+		<ul>
+			{% for c in actor.comentarios.all %}
+				<li><a href="/perfil/{{c.autor.usuario}}">{{c.autor.usuario}}</a>: {{c.comentario}} <font color="#A9A4A4">{{c.fecha_modificacion}}</font></li>
+			{% endfor %}
+		</ul>
+	<div class="comenta">
+		<form class="form-signin" method="post" action="/comenta_actor/{{actor.id}}">{% csrf_token %}
+			<textarea cols="40" id="id_comentario" name="comentario" rows="5" value="{{formulario.coemntario.value}}" placeholder="Comentario..."></textarea>
+			<button class="btn btn-large btn-primary" type="submit">Comenta</button>
+		</form>
 	</div>
 </div>
 {% endblock %}

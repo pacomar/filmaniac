@@ -113,6 +113,7 @@ body {
   width: 285px;
   height: 120px;
 }
+/*------Perfil------------*/
 #perfil{
   float: right;
   border: 1px solid #ccc;
@@ -133,6 +134,29 @@ body {
   border: 2px solid #F3B907;
   border-radius: 4px;
 }
+.box_perfil{
+  width: 880px;
+  padding: 19px 29px 29px;
+  margin: 0 auto 20px;
+  background-color: #fff;
+  border: 1px solid #e5e5e5;
+  border-radius: 5px;
+}
+.info_perfil{
+  float:left;
+  width:600px;
+}
+.perfil_avatar{
+  float:right;
+  width:200px;
+  height:200px;
+  border: 1px solid #e5e5e5;
+  border-radius: 5px;
+}
+.mensajeria{
+  clear:right;
+}
+
 /*----------actor------------*/
 .perfil_actor{
   width:400px;
@@ -151,15 +175,29 @@ body {
   width:100px;
   height:100px;
   float:right;
+  border: 1px solid #e5e5e5;
+  -webkit-border-radius: 5px;
+     -moz-border-radius: 5px;
+          border-radius: 5px;
+  -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+     -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+          box-shadow: 0 1px 2px rgba(0,0,0,.05);
 }
 .nombre_actor{
   float:left;
-  margin: 20px 0 0 0;
+  margin: 10px 0 0 0;
 }
 .biografia{
   clear: left;
   clear: right;
   min-width: 250px;
+}
+.comentarios{
+  width:400px;
+  margin: 0 auto 20px;
+}
+.comenta{
+  text-align: center;
 }
 /*----------Director-----------*/
 .perfil_director{
@@ -197,17 +235,30 @@ body {
   width:200px;
   height:300px;
   float:right;
+  border: 1px solid #e5e5e5;
+  -webkit-border-radius: 5px;
+     -moz-border-radius: 5px;
+          border-radius: 5px;
+  -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+     -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+          box-shadow: 0 1px 2px rgba(0,0,0,.05);
 }
 .titulo_pelicula{
   width:250px;
   float:left;
 }
 .votacion{
-  clear:right;
-  float:right;
+
 }
-
-
+.votacion #submit{
+  margin: 10px 0 0 86px;
+}
+.reparto{
+  min-width: 300px;
+}
+.resumen{
+  clear:right;
+}
 
 #salir{
   float:right;
@@ -215,4 +266,45 @@ body {
 }
 #select_idiomas{
   width:100px;
+}
+
+/*----------Resultado----------*/
+.resultado_busqueda{
+  width:700px;
+  padding: 19px 29px 29px;
+  margin: 0 auto 20px;
+  background-color: #fff;
+  border: 1px solid #e5e5e5;
+  border-radius: 5px;
+}
+.resultado_imagen{
+  margin-right: 10px;
+  float:left;
+  width: 50px;
+  height: 50px;
+  border: 2px solid #e5e5e5;
+  border-radius: 4px;
+}
+.resultado_nombre{
+
+}
+.resultado_descripcion{
+
+}
+
+/*-------------Mensajes----------------*/
+.mensaje{
+  width:700px;
+  margin: 0 auto 0;
+  padding-left: 20px;
+  background-color: #fff;
+  border: 1px solid #e5e5e5;
+}
+.contenido{
+  width:700px;
+  margin: 0 auto 0;
+  padding-left: 20px;
+  background-color: #fff;
+  border: 1px solid #e5e5e5;
+  background-color: #D6D6D6
 }

@@ -2,9 +2,12 @@
 {% load i18n %}
 
 {% block contenido %}
+<h3>Categorías:</h3>
+<ul>
 {% for c in categorias %}
-	<fieldset>
-			Categoria: <a href="/categoria/{{c.id}}">{{c.nombre}}</a>
-	</fieldset>
+	<li>
+		<a href="/categoria/{{c.id}}">{{c.nombre}}</a>
+	</li>
 {% endfor %}
+</ul>
 {% endblock %}

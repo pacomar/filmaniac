@@ -65,3 +65,6 @@ class SubirDirector(ModelForm):
 	class Meta:
 		model = Director
 		exclude = ['comentarios']
+
+class Comenta(forms.Form):
+	comentario = forms.CharField(widget=forms.Textarea)

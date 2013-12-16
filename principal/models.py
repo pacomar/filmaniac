@@ -9,6 +9,13 @@ class Categoria(models.Model):
 	def __unicode__(self):
 		return self.nombre
 
+#Pais
+class Pais(models.Model):
+	nombre = models.CharField(max_length=20, unique=True)
+
+	def __unicode__(self):
+		return self.nombre
+
 #Contacto
 class Contacto(models.Model):
 	nombre = models.CharField(max_length=20)
@@ -59,7 +66,7 @@ class MyUser(AbstractBaseUser, PermissionsMixin):
 	email = models.EmailField(unique=True)
 	fecha_nacimiento = models.DateField(null=True,blank=True)
 	cat_preferidas = models.ManyToManyField(Categoria, null=True, blank=True)
-	avatar = models.ImageField(upload_to='usuarios/avatares', null=True, blank=True)
+	avatar = models.ImageField(upload_to='usuarios/avatares', null=True, blank=True, default="avatar.jpg")
 
 	is_active = models.BooleanField(default=True)
 	is_admin = models.BooleanField(default=False)
@@ -78,7 +85,7 @@ class MyUser(AbstractBaseUser, PermissionsMixin):
 		return self.usuario
 
 	def __unicode__(self):
-		return self.usuario
+		return unicode(self.usuario)
 
 	def has_perm(self, perm, obj=None):
 		"Does the user have a specific permission?"
@@ -109,9 +116,10 @@ class Mensaje(models.Model):
 	to = models.ForeignKey(MyUser, related_name="destinatario")
 	fecha_envio = models.DateField(auto_now_add=True)
 	mensaje = models.TextField()
+	leido = models.BooleanField(default=False)
 
 	def __unicode__(self):
-		return self.fro
+		return self.mensaje
 
 class Comentario(models.Model):
 	autor = models.ForeignKey(MyUser)
@@ -125,8 +133,10 @@ class Comentario(models.Model):
 class Director(models.Model):
 	nombre = models.CharField(max_length=50)
 	apellidos = models.CharField(max_length=180)
+	fecha_nacimiento = models.DateField()
+	nacionalidad = models.ForeignKey('Pais')
 	biografia = models.TextField()
-	foto = models.ImageField(upload_to='retratos/actores', blank=True, null=True)
+	foto = models.ImageField(upload_to='retratos/actores', blank=True, null=True, default="avatar.jpg")
 	comentarios = models.ManyToManyField('Comentario', blank=True, null=True)
 
 	def __unicode__(self):
@@ -136,8 +146,10 @@ class Director(models.Model):
 class Actor(models.Model):
 	nombre = models.CharField(max_length=50)
 	apellidos = models.CharField(max_length=180)
+	fecha_nacimiento = models.DateField()
+	nacionalidad = models.ForeignKey('Pais')
 	biografia = models.TextField()
-	foto = models.ImageField(upload_to='retratos/directores', blank=True, null=True)
+	foto = models.ImageField(upload_to='retratos/directores', blank=True, null=True, default="avatar.jpg")
 	comentarios = models.ManyToManyField('Comentario', blank=True, null=True)
 
 	def __unicode__(self):

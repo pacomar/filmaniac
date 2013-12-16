@@ -3,11 +3,14 @@
 
 {% block contenido %}
 {% for a in actores %}
-	<fieldset>
-			<ul>
-				<li>Nombre: <a href="/actor/{{a.id}}">{{a.nombre}} {{a.apellidos}}</a></li>
-				<li>Foto: proximamente</li>
-			</ul>
-	</fieldset>
+	<div class="resultado_busqueda">
+		<img src="{{MEDIA_URL}}{{a.foto}}" alt="" class="resultado_imagen">
+		<div class="resultado_nombre">
+			<a href="/actor/{{a.id}}">{{a.nombre}} {{a.apellidos}}</a>
+		</div>
+		<div class="resultado_descripcion">
+			{{a.biografia}}
+		</div>
+	</div>
 {% endfor %}
 {% endblock %}

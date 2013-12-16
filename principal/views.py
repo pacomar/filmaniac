@@ -2,9 +2,14 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse, HttpResponseRedirect
-from principal.forms import NuevoUsuarioForm, ContactoForm, SubirActor, SubirPelicula, SubirDirector
-from principal.models import MyUser, Pelicula, Actor, Categoria, Director, Votacion, Contacto
+from principal.forms import NuevoUsuarioForm, ContactoForm, SubirActor, SubirPelicula, SubirDirector, Comenta
+from principal.models import MyUser, Pelicula, Actor, Categoria, Director, Votacion, Contacto, Comentario, Mensaje
 from django.contrib.auth.decorators import login_required
+import datetime
+
+def calcula_edad(fecha):
+    hoy = datetime.date.today()
+    return ((hoy - fecha)/365).days
 
 def index(request):
     if request.user.is_authenticated():
@@ -25,7 +30,8 @@ def registro(request):
                     ape = formulario.cleaned_data['apellidos']
                     ema = formulario.cleaned_data['correo']
                     fecha_nacimiento = formulario.cleaned_data['fecha_nacimiento']
-                    MyUser.objects.create_user(usuario=usern, password=passw, nombre=nom, apellidos=ape, email=ema, fecha_nacimiento=fecha_nacimiento, avatar=None)
+                    ava = formulario.cleaned_data['avatar']
+                    MyUser.objects.create_user(usuario=usern, password=passw, nombre=nom, apellidos=ape, email=ema, fecha_nacimiento=fecha_nacimiento, avatar=ava)
                     return HttpResponseRedirect('/')
     else:
             formulario = NuevoUsuarioForm()
@@ -85,7 +91,7 @@ def peliculas(request):
 @login_required(login_url='/login')
 def pelicula(request, id_pelicula):
     peli = Pelicula.objects.get(id=id_pelicula)
-    acum = 0
+    acum = 0.0
     for v in peli.votaciones.all():
              acum = acum + v.voto
     puntuacion = 0
@@ -107,13 +113,14 @@ def actores(request):
 def actor(request, id_actor):
     actor = Actor.objects.get(id=id_actor)
     peliculas = Pelicula.objects.filter(reparto=id_actor)
-    ctx = {'actor':actor, 'peliculas':peliculas}
+    ctx = {'actor':actor, 'peliculas':peliculas, 'edad':calcula_edad(actor.fecha_nacimiento)}
     return render(request, 'actor.html', ctx)
 
 @login_required(login_url='/login')
 def perfil(request, user_usuario):
     usuario = MyUser.objects.get(usuario=user_usuario)
-    ctx = {'user':usuario}
+    mensajes = Mensaje.objects.filter(to=request.user)
+    ctx = {'user':usuario, 'edad':calcula_edad(usuario.fecha_nacimiento), 'mensajes':mensajes}
     return render(request, 'perfil.html', ctx)
 
 @login_required(login_url='/login')
@@ -139,7 +146,7 @@ def directores(request):
 def director(request, id_director):
     director = Director.objects.get(id=id_director)
     peliculas = Pelicula.objects.filter(director=id_director)
-    ctx = {'director':director, 'peliculas':peliculas}
+    ctx = {'director':director, 'peliculas':peliculas, 'edad':calcula_edad(director.fecha_nacimiento)}
     return render(request, 'director.html', ctx)
 
 @login_required(login_url='/login')
@@ -199,3 +206,66 @@ def nuevo_director(request):
         formulario = SubirDirector()
     ctx = {'formulario':formulario}
     return render(request, 'nuevo_director.html', ctx)
+
+@login_required(login_url='/login')
+def comenta_actor(request, id_actor):
+    if request.method == 'POST':
+        formulario = Comenta(request.POST)
+        if formulario.is_valid():
+            autor = request.user
+            com = formulario.cleaned_data['comentario']
+            comen = Comentario.objects.create(autor=autor, comentario=com)
+            actor = Actor.objects.get(id=id_actor)
+            actor.comentarios.add(comen)
+            return redirect('/actor/'+str(actor.id))
+    else:
+        formulario = Comenta()
+    ctx = {'formulario':formulario}
+    return render(request, 'privada.html', ctx)
+
+@login_required(login_url='/login')
+def comenta_director(request, id_director):
+    if request.method == 'POST':
+        formulario = Comenta(request.POST)
+        if formulario.is_valid():
+            autor = request.user
+            com = formulario.cleaned_data['comentario']
+            comen = Comentario.objects.create(autor=autor, comentario=com)
+            director = Director.objects.get(id=id_director)
+            director.comentarios.add(comen)
+            return redirect('/director/'+str(director.id))
+    else:
+        formulario = Comenta()
+    ctx = {'formulario':formulario}
+    return render(request, 'privada.html', ctx)
+
+@login_required(login_url='/login')
+def comenta_pelicula(request, id_pelicula):
+    if request.method == 'POST':
+        formulario = Comenta(request.POST)
+        if formulario.is_valid():
+            autor = request.user
+            com = formulario.cleaned_data['comentario']
+            comen = Comentario.objects.create(autor=autor, comentario=com)
+            pelicula = Pelicula.objects.get(id=id_pelicula)
+            pelicula.comentarios.add(comen)
+            return redirect('/pelicula/'+str(pelicula.id))
+    else:
+        formulario = Comenta()
+    ctx = {'formulario':formulario}
+    return render(request, 'privada.html', ctx)
+
+@login_required(login_url='/login')
+def envia_mensaje(request, username):
+    if request.method == 'POST':
+        formulario = Comenta(request.POST)
+        if formulario.is_valid():
+            fro = request.user
+            to = MyUser.objects.get(usuario=username)
+            men = formulario.cleaned_data['mensaje']
+            mensaje = Mensaje.objects.create(to=to, fro=fro, mensaje=men)
+            return redirect('/perfil/'+username)
+    else:
+        formulario = Comenta()
+    ctx = {'formulario':formulario}
+    return render(request, 'perfil.html', ctx)
