@@ -1,0 +1,60 @@
+{% load i18n %}
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="description" content="Aplicacion para la informacion sobre peliculas">
+		<meta name="author" content="Francisco Martínez">
+		<title>Film Maniac-{% trans 'Publica' %}</title>
+		<link href="{{STATIC_URL}}css/base.css" rel="stylesheet" media="screen">
+		<link href="{{STATIC_URL}}css/lib/bootstrap.min.css" rel="stylesheet" media="screen">
+	</head>
+	<body>
+		<div class="container">
+			<form id="form1" action="/i18n/setlang/" method="post">{% csrf_token %}
+		            <input name="next" type="hidden" value="/" />
+		            <select name="language" onchange="document.getElementById('form1').submit();"id="select_idiomas">
+		                {% for lang in LANGUAGES %}
+		                    <option value="{{ lang.0 }}">{{ lang.1 }}</option>
+		                {% endfor %}
+		            </select>
+		        </form>	
+			<div class="masthead">	
+				<h3 class="muted">Film Maniac</h3>
+				<div class="navbar">
+					<div class="navbar-inner">
+						<div class="container">
+							<ul class="nav">
+								<li><a href="/">{% trans "Inicio" %}</a></li>
+								<li><a href="/registro/">{% trans "Registro" %}</a></li>
+								<li><a href="/login/">{% trans "Login" %}</a></li>
+								<li><a href="/contacto/">{% trans "Contacto" %}</a></li>
+							</ul>
+						</div>
+					</div>
+				</div><!-- /.navbar -->
+			</div>
+			<div id="contenido">
+				{% block contenido%}{% endblock %}
+			</div>
+			<hr>
+			<div class="footer">
+		        <p>&copy; PA&CO 2014</p>
+		    </div>
+		</div>
+		<script src="{{STATIC_URL}}js/lib/bootstrap.min.js"></script>
+		<script src="{{STATIC_URL}}js/lib/jquery-1.7.1.min.js"></script>
+	    <script type="text/javascript">
+	    	{% if request.session.django_language %}
+		        $(document).ready(function(){
+		            $("#select_idiomas").val("{{request.session.django_language}}");
+		        });
+	        {% endif %}
+	        var url = window.location;
+	        $('ul.nav a').filter(function() {
+			    return this.href == url;
+			}).parent().addClass('active');
+	    </script>
+	</body>
+</html>

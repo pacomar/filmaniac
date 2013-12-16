@@ -1,0 +1,14 @@
+{% extends 'base_privada.html' %}
+{% load i18n %}
+
+{% block contenido %}
+<form method="post" id="formDirector" class="form-signin formlargo">{% csrf_token %}
+	<h2 class="form-signin-heading">Introduce un Director</h2>
+	<label for="id_nombre">Nombre:</label> <input id="id_nombre" maxlength="50" name="nombre" type="text" />
+	<label for="id_apellidos">Apellidos:</label> <input id="id_apellidos" maxlength="180" name="apellidos" type="text" />
+	<label for="id_biografia">Biografia:</label> <textarea cols="40" id="id_biografia" name="biografia" rows="5">
+	</textarea>
+	<label for="id_foto">Foto:</label> <input id="id_foto" name="foto" type="file" /> <br>
+	<button class="btn btn-large btn-primary" type="submit">Sign up</button>
+</form>
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends 'base_privada.html' %}
+{% load i18n %}
+
+{% block contenido %}
+
+<div class="pelicula_detallada">
+	<div class="titulo_pelicula">
+		Titulo: <a href="/pelicula/{{pelicula.id}}">{{pelicula.titulo}}</a><br>
+		Director: <a href="/director/{{pelicula.director.id}}">{{pelicula.director.nombre}} {{pelicula.director.apellidos}}</a> <br>
+		Estreno: {{pelicula.anio}} <br>
+		Genero: 
+			<ul>
+				{% for c in pelicula.categorias.all %}
+					<li><a href="/categoria/{{c.id}}">{{c.nombre}}</a></li>
+				{% endfor %}
+			</ul>
+	</div>
+	<img src="{{MEDIA_URL}}{{pelicula.caratula}}" alt="" class="caratula">
+	<div class="votacion">
+		Puntuacion Media: {{puntuacion}} <br>
+		Votaciones:
+		<ul>
+			{% for v in pelicula.votaciones.all %}
+				<li>{{v.voto}}</a></li>
+			{% endfor %}
+		</ul>
+		{% if not voto %}
+			<form action="/vota/{{pelicula.id}}" method="POST">{% csrf_token %}
+				Puntuacion: 1<input type="range" name="valoracion" min="1" max="5" id="valoracion">5
+				<input type="submit" id="submit" name="submit" value="Votar">
+			</form>
+		{% else %}
+			Tu voto ha sido: {{voto.voto}} <a href="/eliminavoto/{{voto.id}}">Eliminar</a>
+		{% endif %}
+	</div>
+	<div class="resumen">
+		<h3>Resumen:</h3> 
+		<p>{{pelicula.resumen}}</p>
+	</div>
+	<div class="reparto">
+		<h3>Reparto:</h3>
+		<ul>
+			{% for a in pelicula.reparto.all %}
+				<li><a href="/actor/{{a.id}}">{{a.nombre}} {{a.apellidos}}</a></li>
+			{% endfor %}
+		</ul>
+	</div>
+</div>
+{% endblock %}

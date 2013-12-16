@@ -1,0 +1,32 @@
+{% extends 'base_publica.html' %}
+{% load i18n %}
+
+{% block contenido %}
+<!-- Jumbotron -->
+      <div class="jumbotron">
+        <h1>¡Películas aqui!</h1>
+        <p class="lead">Todo lo que necesites saber sobre las películas lo tendras aquí. Solo entra y encontraras todas las peliculas estrenadas hasta ahora y proximos estrenos. Proximemente tambien series.</p>
+        <a class="btn btn-large btn-success" href="/registro/">¡Empieza hoy!</a>
+      </div>
+
+      <hr>
+
+      <!-- Example row of columns -->
+      <div class="row-fluid">
+        <div class="span4">
+          <h2>Películas</h2>
+          <p>Si quieres saber todos sobre las películas logueate y estate al tanto de todo. </p>
+          <p><a class="btn" href="/peliculas/">Ver más.</a></p>
+        </div>
+        <div class="span4">
+          <h2>Actores</h2>
+          <p>Si quieres saber todos sobre los actores logueate y estate al tanto de todo. </p>
+          <p><a class="btn" href="/actores/">Ver más.</a></p>
+       </div>
+        <div class="span4">
+          <h2>Directores</h2>
+          <p>Si quieres saber todos sobre los directores logueate y estate al tanto de todo. </p>
+          <p><a class="btn" href="/directores/">Ver más.</a></p>
+        </div>
+      </div>
+{% endblock %}

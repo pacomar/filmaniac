@@ -1,0 +1,17 @@
+{% extends 'base_publica.html' %}
+{% load i18n %}
+
+{% block contenido %}
+<form method="post" id="formRegistro" class="form-signin">{% csrf_token %}
+	<h2 class="form-signin-heading">Registrate</h2>
+	<label for="id_usuario">Usuario:</label> <input class="input-block-level" id="id_usuario" name="usuario" type="text" {% if form.usuario.value %}value="{{form.usuario.value}}" {% endif %}/>
+	<label for="id_password">Password:</label> <input class="input-block-level" id="id_password" name="password" type="password"/>
+	<label for="id_password2">Repite password:</label> <input class="input-block-level" id="id_password2" name="password2" type="password"/>
+	<label for="id_nombre">Nombre:</label> <input class="input-block-level" id="id_nombre" name="nombre" type="text" {% if form.nombre.value %}value="{{form.nombre.value}}" {% endif %}/>
+	<label for="id_apellidos">Apellidos:</label> <input class="input-block-level" id="id_apellidos" name="apellidos" type="text" {% if form.apellidos.value %}value="{{form.apellidos.value}}" {% endif %}/>
+	<label for="id_correo">Correo electronico:</label> <input class="input-block-level" id="id_correo" name="correo" type="email" {% if form.correo.value %}value="{{form.correo.value}}" {% endif %}/>
+	<label for="id_fecha_nacimiento">Fecha de ancimento:</label> <input class="input-block-level" id="id_fecha_nacimiento" name="fecha_nacimiento" type="text" {% if form.fecha_nacimiento.value %}value="{{form.fecha_nacimiento.value}}" {% endif %}/>
+	<label for="id_avatar">Avatar:</label> <input lass="input-block-level" id="id_avatar" name="avatar" type="file" />
+	<button class="btn btn-large btn-primary" type="submit">Sign up</button>
+</form>
+{% endblock %}

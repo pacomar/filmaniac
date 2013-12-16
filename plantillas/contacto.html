@@ -1,0 +1,12 @@
+{% extends 'base_publica.html' %}
+{% load i18n %}
+
+{% block contenido %}
+<form class="form-signin" method="post">{% csrf_token %}
+	<h2 class="form-signin-heading">Contacta</h2>
+	<input type="text" class="input-block-level" placeholder="Nombre..." name="nombre" {% if form.nombre.value %}value="{{form.nombre.value}}" {% endif %}>
+	<input class="input-block-level" id="id_correo" placeholder="email..." name="correo" type="email" {% if form.correo.value %}value="{{form.correo.value}}" {% endif %}/>
+	<textarea cols="40" id="id_consulta" name="consulta" rows="10" value="{{formulario.consulta.value}}" placeholder="Consulta..."></textarea>
+	<button class="btn btn-large btn-primary" type="submit">Enviar</button>
+</form>
+{% endblock %}

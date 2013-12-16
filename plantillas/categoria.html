@@ -1,0 +1,14 @@
+{% extends 'base_privada.html' %}
+{% load i18n %}
+
+{% block contenido %}
+	{{categoria}}	
+	{% for p in peliculas %}
+		<fieldset>	
+			<ul>
+				<li>Titulo: <a href="/pelicula/{{p.id}}">{{p.titulo}}</a></li>
+				<li>Caratula: proximamente</li>
+			</ul>
+		</fieldset>
+	{% endfor %}
+{% endblock %}

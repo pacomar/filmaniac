@@ -1,0 +1,25 @@
+{% extends 'base_privada.html' %}
+{% load i18n %}
+
+{% block contenido %}
+<div class="perfil_director">
+	<div class="nombre_director">
+		Nombre: <a href="/director/{{director.id}}">{{director.nombre}} {{director.apellidos}}</a> <br>
+		Edad: XX <br>
+		Nacionalidad: XX
+	</div>
+	<img src="{{MEDIA_URL}}{{director.foto}}" alt="" class="retrato">
+	<div class="biografia">
+		<h3>Biografia:</h3> 
+		<p>{{director.biografia}}</p>
+	</div>
+	<div class="peliculas_dirige">
+		<h3>Peliculas dirigidas:</h3>
+		<ul>
+			{% for p in peliculas %}
+				<li><a href="/pelicula/{{p.id}}">{{p.titulo}}</a></li>
+			{% endfor %}
+		</ul>
+	</div>
+</div>
+{% endblock %}

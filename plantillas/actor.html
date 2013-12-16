@@ -1,0 +1,25 @@
+{% extends 'base_privada.html' %}
+{% load i18n %}
+
+{% block contenido %}
+<div class="perfil_actor">
+	<div class="nombre_actor">
+		Nombre:<a href="/actor/{{actor.id}}">{{actor.nombre}} {{actor.apellidos}}</a> <br>
+		Edad: XX <br>
+		Nacionalidad: XX
+	</div>
+	<img src="{{MEDIA_URL}}{{actor.foto}}" alt="" class="retrato">
+	<div class="biografia">
+		<h3>Biografia:</h3> 
+		<p>{{actor.biografia}}</p>
+	</div>
+	<div class="peliculas_actua">
+		<h3>Peliculas realizadas:</h3>
+		<ul>
+			{% for p in peliculas %}
+				<li><a href="/pelicula/{{p.id}}">{{p.titulo}}</a></li>
+			{% endfor %}
+		</ul>
+	</div>
+</div>
+{% endblock %}

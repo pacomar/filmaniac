@@ -1,0 +1,10 @@
+{% extends 'base_privada.html' %}
+{% load i18n %}
+
+{% block contenido %}
+{% for c in categorias %}
+	<fieldset>
+			Categoria: <a href="/categoria/{{c.id}}">{{c.nombre}}</a>
+	</fieldset>
+{% endfor %}
+{% endblock %}

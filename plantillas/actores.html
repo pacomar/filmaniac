@@ -1,0 +1,13 @@
+{% extends 'base_privada.html' %}
+{% load i18n %}
+
+{% block contenido %}
+{% for a in actores %}
+	<fieldset>
+			<ul>
+				<li>Nombre: <a href="/actor/{{a.id}}">{{a.nombre}} {{a.apellidos}}</a></li>
+				<li>Foto: proximamente</li>
+			</ul>
+	</fieldset>
+{% endfor %}
+{% endblock %}
