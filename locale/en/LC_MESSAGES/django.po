@@ -1,0 +1,78 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2013-12-24 15:44+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: filmmaniac/settings.py:87
+msgid "Spanish"
+msgstr "Spanish"
+
+#: filmmaniac/settings.py:88
+msgid "English"
+msgstr "English"
+
+#: plantillas/base_privada.html:11
+msgid "Privada"
+msgstr "Private"
+
+#: plantillas/base_privada.html:18
+msgid "Salir"
+msgstr "Log Out"
+
+#: plantillas/base_privada.html:34
+msgid "Home"
+msgstr "Home"
+
+#: plantillas/base_privada.html:35
+msgid "Peliculas"
+msgstr "Films"
+
+#: plantillas/base_privada.html:36
+msgid "Actores"
+msgstr "Actors"
+
+#: plantillas/base_privada.html:37
+msgid "Directores"
+msgstr "Directors"
+
+#: plantillas/base_privada.html:38
+msgid "Categorías"
+msgstr "Themes"
+
+#: plantillas/base_privada.html:39
+msgid "Contribuir"
+msgstr "Share"
+
+#: plantillas/base_publica.html:9
+msgid "Publica"
+msgstr "Public"
+
+#: plantillas/base_publica.html:29
+msgid "Inicio"
+msgstr "Home"
+
+#: plantillas/base_publica.html:30
+msgid "Registrate"
+msgstr "Sing Up"
+
+#: plantillas/base_publica.html:31
+msgid "Login"
+msgstr "Log In"
+
+#: plantillas/base_publica.html:32
+msgid "Contacto"
+msgstr "Contact"
