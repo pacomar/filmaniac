@@ -115,6 +115,7 @@ class Mensaje(models.Model):
 	fro = models.ForeignKey(MyUser, related_name="remitente")
 	to = models.ForeignKey(MyUser, related_name="destinatario")
 	fecha_envio = models.DateField(auto_now_add=True)
+	asunto = models.CharField(max_length=100)
 	mensaje = models.TextField()
 	leido = models.BooleanField(default=False)
 

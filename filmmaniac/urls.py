@@ -31,4 +31,6 @@ urlpatterns = patterns('',
     url(r'^comenta_actor/(?P<id_actor>\d+)$','principal.views.comenta_actor'),
     url(r'^comenta_director/(?P<id_director>\d+)$','principal.views.comenta_director'),
     url(r'^comenta_pelicula/(?P<id_pelicula>\d+)$','principal.views.comenta_pelicula'),
+    url(r'^responde/(?P<user_usuario>\w+)$','principal.views.responde'),
+    url(r'^enviar/', 'principal.views.enviar'),
 )

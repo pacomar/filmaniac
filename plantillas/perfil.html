@@ -11,10 +11,15 @@
 		{% if mensajes %}
 				{% for m in mensajes %}
 						<div class="mensaje">
-							Mensaje de: <a href="/perfil/{{m.fro}}">{{m.fro}}</a>, recibido el: {{m.fecha_envio}}							 
+							<a href="/perfil/{{m.fro}}">{{m.fro}}</a>, {{m.asunto}}, {{m.fecha_envio}}					 
 						</div>
 						<div class="contenido" style="display: none;">
 							{{m.mensaje}}
+							<form  method="post" action="/responde/{{m.fro}}">{% csrf_token %}
+								<input type="text" name="asunto" value="Re: {{m.asunto}}"> <br>
+								<textarea name="mensaje" rows="6" class="redacta_mensaje"></textarea> <br>
+								<button class="btn btn-large btn-primary" type="submit">Responder</button>
+							</form>
 						</div>
 				{% endfor %}
 		{% else %}

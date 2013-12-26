@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse, HttpResponseRedirect
-from principal.forms import NuevoUsuarioForm, ContactoForm, SubirActor, SubirPelicula, SubirDirector, Comenta
+from principal.forms import NuevoUsuarioForm, ContactoForm, SubirActor, SubirPelicula, SubirDirector, Comenta, Comenta2
 from principal.models import MyUser, Pelicula, Actor, Categoria, Director, Votacion, Contacto, Comentario, Mensaje
 from django.contrib.auth.decorators import login_required
 import datetime
@@ -120,7 +120,7 @@ def actor(request, id_actor):
 def perfil(request, user_usuario):
     usuario = MyUser.objects.get(usuario=user_usuario)
     mensajes = Mensaje.objects.filter(to=request.user)
-    ctx = {'user':usuario, 'edad':calcula_edad(usuario.fecha_nacimiento), 'mensajes':mensajes}
+    ctx = {'user':usuario, 'edad':calcula_edad(usuario.fecha_nacimiento), 'mensajes':mensajes.reverse()}
     return render(request, 'perfil.html', ctx)
 
 @login_required(login_url='/login')
@@ -256,16 +256,33 @@ def comenta_pelicula(request, id_pelicula):
     return render(request, 'privada.html', ctx)
 
 @login_required(login_url='/login')
-def envia_mensaje(request, username):
+def responde(request, user_usuario):
     if request.method == 'POST':
         formulario = Comenta(request.POST)
         if formulario.is_valid():
             fro = request.user
-            to = MyUser.objects.get(usuario=username)
+            to = MyUser.objects.get(usuario=user_usuario)
+            asu = formulario.cleaned_data['asunto']
             men = formulario.cleaned_data['mensaje']
             mensaje = Mensaje.objects.create(to=to, fro=fro, mensaje=men)
-            return redirect('/perfil/'+username)
+            return redirect('/perfil/'+fro)
     else:
         formulario = Comenta()
+    ctx = {'formulario':formulario}
+    return render(request, 'perfil.html', ctx)
+
+@login_required(login_url='/login')
+def enviar(request):
+    if request.method == 'POST':
+        formulario = Comenta2(request.POST)
+        if formulario.is_valid():
+            fro = request.user
+            to = MyUser.objects.get(usuario=formulario.cleaned_data['to'])
+            asu = formulario.cleaned_data['asunto']
+            men = formulario.cleaned_data['mensaje']
+            mensaje = Mensaje.objects.create(to=to, fro=fro, mensaje=men)
+            return redirect('/perfil/'+fro.username)
+    else:
+        formulario = Comenta2()
     ctx = {'formulario':formulario}
     return render(request, 'perfil.html', ctx)

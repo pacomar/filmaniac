@@ -2,7 +2,7 @@
 {% load i18n %}
 
 {% block contenido %}
-	{{categoria}}	
+	<h3>{{categoria}}</h3>	
 	{% for p in peliculas %}
 		<div class="resultado_busqueda">
 			<img src="{{MEDIA_URL}}{{p.caratula}}" alt="" class="resultado_imagen">
