@@ -119,6 +119,12 @@ def actor(request, id_actor):
 @login_required(login_url='/login')
 def perfil(request, user_usuario):
     usuario = MyUser.objects.get(usuario=user_usuario)
+    ctx = {'user':usuario, 'edad':calcula_edad(usuario.fecha_nacimiento)}
+    return render(request, 'perfil.html', ctx)
+
+@login_required(login_url='/login')
+def mi_perfil(request):
+    usuario = MyUser.objects.get(usuario=request.user.usuario)
     mensajes = Mensaje.objects.filter(to=request.user)
     ctx = {'user':usuario, 'edad':calcula_edad(usuario.fecha_nacimiento), 'mensajes':mensajes}
     return render(request, 'perfil.html', ctx)

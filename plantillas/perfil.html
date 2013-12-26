@@ -4,9 +4,9 @@
 {% block contenido %}
 <div class="box_perfil">
 	<div class="info_perfil">
-		<h3>{{request.user.nombre}} {{request.user.apellidos}}</h3>
+		<h3>{{user.nombre}} {{user.apellidos}}</h3>
 	</div>
-	<img src="{{MEDIA_URL}}{{request.user.avatar}}" alt="" class="perfil_avatar">
+	<img src="{{MEDIA_URL}}{{user.avatar}}" alt="" class="perfil_avatar">
 	<div class="mensajeria">
 		{% if mensajes %}
 				{% for m in mensajes %}
@@ -15,10 +15,17 @@
 						</div>
 						<div class="contenido" style="display: none;">
 							{{m.mensaje}}
+							<hr>
+							<form class="form-signin" method="post">{% csrf_token %}
+								<input type="text" class="input-block-level" placeholder="Nombre..." name="nombre" {% if form.nombre.value %}value="{{form.nombre.value}}" {% endif %}>
+								<input class="input-block-level" id="id_correo" placeholder="email..." name="correo" type="email" {% if form.correo.value %}value="{{form.correo.value}}" {% endif %}/>
+								<textarea cols="40" id="id_consulta" name="consulta" rows="10" value="{{formulario.consulta.value}}" placeholder="Consulta..."></textarea>
+								<button class="btn btn-large btn-primary" type="submit">Enviar</button>
+							</form>
 						</div>
 				{% endfor %}
 		{% else %}
-			No tienes mensajes
+
 		{% endif %}
 	</div>
 </div>

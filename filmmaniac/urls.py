@@ -20,6 +20,7 @@ urlpatterns = patterns('',
     url(r'^directores/', 'principal.views.directores'),
     url(r'^director/(?P<id_director>\d+)$','principal.views.director'),
     url(r'^perfil/(?P<user_usuario>\w+)$','principal.views.perfil'),
+    url(r'^miperfil/','principal.views.mi_perfil'),
     url(r'^vota/(?P<id_pelicula>\d+)$', 'principal.views.vota'),
     url(r'^eliminavoto/(?P<id_voto>\d+)$', 'principal.views.eliminavoto'),
     url(r'^contribuir/', 'principal.views.contribuir'),
@@ -31,4 +32,5 @@ urlpatterns = patterns('',
     url(r'^comenta_actor/(?P<id_actor>\d+)$','principal.views.comenta_actor'),
     url(r'^comenta_director/(?P<id_director>\d+)$','principal.views.comenta_director'),
     url(r'^comenta_pelicula/(?P<id_pelicula>\d+)$','principal.views.comenta_pelicula'),
+    url(r'^enviamensaje/(?P<user_usuario>\w+)$','principal.views.envia_mensaje')
 )

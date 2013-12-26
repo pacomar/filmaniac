@@ -14,7 +14,7 @@
 		<div class="container">
 			<div id="perfil">
 				<img src="{{MEDIA_URL}}{{request.user.avatar}}" alt="" id="avatar">
-				<a href="/perfil/{{request.user.usuario}}">{{request.user.usuario}}</a>
+				<a href="/miperfil/">{{request.user.usuario}}</a>
 				<a href="/salir" id="salir">{% trans "Salir" %}</a>
 			</div>
 			<form id="form1" action="/i18n/setlang/" method="post">{% csrf_token %}
