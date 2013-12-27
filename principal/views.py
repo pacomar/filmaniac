@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse, HttpResponseRedirect
-from principal.forms import NuevoUsuarioForm, ContactoForm, SubirActor, SubirPelicula, SubirDirector, Comenta, Comenta2
+from principal.forms import NuevoUsuarioForm, ContactoForm, SubirActor, SubirPelicula, SubirDirector, Comenta, EnviaMensaje, Responde
 from principal.models import MyUser, Pelicula, Actor, Categoria, Director, Votacion, Contacto, Comentario, Mensaje
 from django.contrib.auth.decorators import login_required
 import datetime
@@ -256,23 +256,22 @@ def comenta_pelicula(request, id_pelicula):
             pelicula = Pelicula.objects.get(id=id_pelicula)
             pelicula.comentarios.add(comen)
             return redirect('/pelicula/'+str(pelicula.id))
-    else:
-        formulario = Comenta()
-    ctx = {'formulario':formulario}
-    return render(request, 'privada.html', ctx)
+    return redirect('/error/')
 
 @login_required(login_url='/login')
 def envia_mensaje(request, user_usuario):
     if request.method == 'POST':
-        formulario = Comenta(request.POST)
+        formulario = Responde(request.POST)
         if formulario.is_valid():
             fro = request.user
             to = MyUser.objects.get(usuario=user_usuario)
             asu = formulario.cleaned_data['asunto']
             men = formulario.cleaned_data['mensaje']
-            mensaje = Mensaje.objects.create(to=to, fro=fro, mensaje=men)
-            return redirect('/perfil/'+fro)
-    else:
-        formulario = Comenta()
-    ctx = {'formulario':formulario}
-    return render(request, 'perfil.html', ctx)
+            mensaje = Mensaje.objects.create(to=to, fro=fro, asunto=asu, mensaje=men)
+            return redirect('/miperfil/')
+    return redirect('/error/')
+
+@login_required(login_url='/login')
+def error(request):
+    ctx = {}
+    return render(request, 'error.html', ctx)

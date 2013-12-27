@@ -5,6 +5,7 @@
 <div class="box_perfil">
 	<div class="info_perfil">
 		<h3>{{user.nombre}} {{user.apellidos}}</h3>
+		<h4>Edad: {{edad}}</h4>
 	</div>
 	<img src="{{MEDIA_URL}}{{user.avatar}}" alt="" class="perfil_avatar">
 	<div class="mensajeria">
@@ -15,19 +16,11 @@
 						</div>
 						<div class="contenido" style="display: none;">
 							{{m.mensaje}}
-<<<<<<< HEAD
 							<hr>
-							<form class="form-signin" method="post">{% csrf_token %}
-								<input type="text" class="input-block-level" placeholder="Nombre..." name="nombre" {% if form.nombre.value %}value="{{form.nombre.value}}" {% endif %}>
-								<input class="input-block-level" id="id_correo" placeholder="email..." name="correo" type="email" {% if form.correo.value %}value="{{form.correo.value}}" {% endif %}/>
-								<textarea cols="40" id="id_consulta" name="consulta" rows="10" value="{{formulario.consulta.value}}" placeholder="Consulta..."></textarea>
-								<button class="btn btn-large btn-primary" type="submit">Enviar</button>
-=======
-							<form  method="post" action="/responde/{{m.fro}}">{% csrf_token %}
+							<form  method="post" action="/enviamensaje/{{m.fro}}">{% csrf_token %}
 								<input type="text" name="asunto" value="Re: {{m.asunto}}"> <br>
 								<textarea name="mensaje" rows="6" class="redacta_mensaje"></textarea> <br>
 								<button class="btn btn-large btn-primary" type="submit">Responder</button>
->>>>>>> c99434a7b0d21e6d043214c79d579d6b225dc8ba
 							</form>
 						</div>
 				{% endfor %}
