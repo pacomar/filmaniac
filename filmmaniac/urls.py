@@ -34,4 +34,6 @@ urlpatterns = patterns('',
     url(r'^comenta_pelicula/(?P<id_pelicula>\d+)$','principal.views.comenta_pelicula'),
     url(r'^enviamensaje/(?P<user_usuario>\w+)$','principal.views.envia_mensaje'),
     url(r'^error/', 'principal.views.error'),
+    url(r'^busca_wikipedia/', 'principal.views.busca_wikipedia'),
+    url(r'^wiki/(?P<campo>[\w\W]+)$','principal.views.busca_wikipedia2'),
 )

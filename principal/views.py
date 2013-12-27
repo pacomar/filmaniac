@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse, HttpResponseRedirect
-from principal.forms import NuevoUsuarioForm, ContactoForm, SubirActor, SubirPelicula, SubirDirector, Comenta, EnviaMensaje, Responde
+from principal.forms import NuevoUsuarioForm, ContactoForm, SubirActor, SubirPelicula, SubirDirector, Comenta, EnviaMensaje, Responde, BuscaWikipedia
 from principal.models import MyUser, Pelicula, Actor, Categoria, Director, Votacion, Contacto, Comentario, Mensaje
 from django.contrib.auth.decorators import login_required
 import datetime
@@ -275,3 +275,23 @@ def envia_mensaje(request, user_usuario):
 def error(request):
     ctx = {}
     return render(request, 'error.html', ctx)
+
+
+from pattern.web import Wikipedia
+engine = Wikipedia(license=None, throttle=5.0, language='es')
+@login_required(login_url='/login')
+def busca_wikipedia(request):
+    if request.method == 'POST':
+        formulario = BuscaWikipedia(request.POST)
+        if formulario.is_valid():
+            busca = formulario.cleaned_data['busca']
+            article = engine.search(busca)
+            ctx = {'articulo':article}
+            return render(request, 'wikipedia.html', ctx)
+    return redirect('/error/')
+
+@login_required(login_url='/login')
+def busca_wikipedia2(request, campo):
+    article = engine.search(campo)
+    ctx = {'articulo':article}
+    return render(request, 'wikipedia.html', ctx)

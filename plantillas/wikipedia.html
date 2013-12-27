@@ -1,0 +1,12 @@
+{% extends 'base_privada.html' %}
+{% load i18n %}
+
+{% block contenido %}
+{% if articulo.source %}
+	{% autoescape off %}
+	    {{articulo.source}}
+	{% endautoescape %}
+{% else %}
+	Sin resultados
+{% endif %}
+{% endblock %}

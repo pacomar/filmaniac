@@ -77,3 +77,6 @@ class EnviaMensaje(forms.Form):
 class Responde(forms.Form):
 	asunto = forms.CharField()
 	mensaje = forms.CharField(widget=forms.Textarea)
+
+class BuscaWikipedia(forms.Form):
+	busca = forms.CharField()
