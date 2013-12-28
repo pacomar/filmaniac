@@ -26,7 +26,10 @@
 	            </select>
 	        </form>
 	        <div class="buscador">
-	        	Buscar en Wikipedia: <input type="text" class="busca">
+	        	<form method="post" action="/busca_wikipedia/">{% csrf_token %}
+					<input type="text" class="busca" name="busca" placeholder="Buscar en wikipedia..">
+					<button class="btn btn-primary" type="submit">Buscar</button>
+				</form>
 	        </div>
 	        <div class="masthead">	
 				<h3 class="muted">Film Maniac</h3>
