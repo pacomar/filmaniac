@@ -51,7 +51,8 @@ def entrar(request):
                     else:
                             return HttpResponse('Algo salio mal')
             else:
-                    return HttpResponse('El formulario no es valido')
+                    ctx = {'form':form}
+                    return render(request, 'login.html', ctx)
     else:
             form = AuthenticationForm()
     ctx = {'form':form}

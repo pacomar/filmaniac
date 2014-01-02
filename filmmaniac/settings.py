@@ -29,6 +29,8 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'principal',
+    'recommends',
+    'recommends.storage.djangoorm',
 )
 
 MIDDLEWARE_CLASSES = (

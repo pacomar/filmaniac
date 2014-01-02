@@ -1,5 +1,6 @@
 {% extends 'base_privada.html' %}
 {% load i18n %}
+{% load recommends %}
 
 {% block contenido %}
 
@@ -39,6 +40,13 @@
 		<h3>Resumen:</h3> 
 		<p>{{pelicula.resumen}}</p>
 	</div>
+</div>
+<div id="recomendados">
+	<h3>Peliculas similares:</h3>
+	{% suggested as suggestions [limit 5]  %}
+	{% for suggested in suggestions %}
+		{{ suggested.object }}
+	{% endfor %}
 </div>
 <div class="comentarios">
 	<h3>Comentarios:</h3>

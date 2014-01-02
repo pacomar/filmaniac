@@ -1,6 +1,8 @@
 #encoding:utf-8
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
+from recommends.providers import recommendation_registry, RecommendationProvider
+from django.contrib.sites.models import Site
 
 #Categoria
 class Categoria(models.Model):
@@ -103,13 +105,6 @@ class MyUser(AbstractBaseUser, PermissionsMixin):
 		# Simplest possible answer: All admins are staff
 		return self.is_admin
 
-#Votacion
-class Votacion(models.Model):
-	voto = models.IntegerField(choices = ((1,1),(2,2),(3,3),(4,4),(5,5)))
-	usuario = models.ForeignKey(MyUser)
-	def __unicode__(self):
-		return str(self.voto)
-
 #Contacto
 class Mensaje(models.Model):
 	fro = models.ForeignKey(MyUser, related_name="remitente")
@@ -164,9 +159,42 @@ class Pelicula(models.Model):
 	director = models.ForeignKey(Director)
 	resumen = models.TextField()
 	categorias = models.ManyToManyField(Categoria)
-	votaciones = models.ManyToManyField(Votacion, blank=True, null=True)
 	caratula = models.ImageField(upload_to='caratulas', blank=True, null=True)
 	comentarios = models.ManyToManyField('Comentario', blank=True, null=True)
 
 	def __unicode__(self):
 		return self.titulo
+
+#Votacion
+class Votacion(models.Model):
+	voto = models.IntegerField(choices = ((1,1),(2,2),(3,3),(4,4),(5,5)))
+	pelicula 0 models.ForeignKey('Pelicula')
+	usuario = models.ForeignKey(MyUser)
+	site = models.ForeignKey(Site)
+
+	def __unicode__(self):
+		return str(self.voto)
+
+
+#----------------Sistema de recomendacion------------------
+class ProductRecommendationProvider(RecommendationProvider):
+    def get_users(self):
+        return MyUser.objects.filter(is_active=True).distinct()
+
+    def get_items(self):
+        return Pelicula.objects.all()
+
+    def get_ratings(self, obj):
+        return Votacion.objects.filter(pelicula=obj)
+
+    def get_rating_score(self, rating):
+        return rating.voto
+
+    def get_rating_site(self, rating):
+        return rating.site
+
+    def get_rating_user(self, rating):
+        return rating.usuario
+
+    def get_rating_item(self, rating):
+        return rating.pelicula

@@ -35,6 +35,7 @@
 <script> 
 $(document).ready(function(){
   $(".mensaje").click(function(){
+  	$(".mensaje").next().slideUp();
     $(this).next().slideToggle("slow");
   });
 });
