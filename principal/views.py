@@ -93,15 +93,16 @@ def peliculas(request):
 def pelicula(request, id_pelicula):
     peli = Pelicula.objects.get(id=id_pelicula)
     acum = 0.0
-    for v in peli.votaciones.all():
-             acum = acum + v.voto
+    votaciones = Votacion.objects.filter(pelicula=peli)
+    for v in votaciones:
+        acum = acum + v.voto
     puntuacion = 0
     voto = None
-    if peli.votaciones.count() > 0:
-            puntuacion = acum / peli.votaciones.count()
-            if peli.votaciones.filter(usuario=request.user):
-                voto = peli.votaciones.get(usuario=request.user)
-    ctx = {'pelicula':peli,'puntuacion':puntuacion,'voto':voto}
+    if len(votaciones) > 0:
+        puntuacion = acum / len(votaciones)
+        if votaciones.filter(usuario=request.user):
+            voto = votaciones.get(usuario=request.user)
+    ctx = {'pelicula':peli,'puntuacion':puntuacion,'voto':voto, 'votaciones':votaciones}
     return render(request, 'pelicula.html', ctx)
 
 @login_required(login_url='/login')
@@ -160,14 +161,13 @@ def director(request, id_director):
 def vota(request, id_pelicula):
     num = request.POST.get("valoracion")
     user = request.user
-    voto = Votacion(voto=num,usuario=user)
+    peli = Pelicula.objects.get(id=id_pelicula)
+    voto = Votacion(voto=num,usuario=user, pelicula=peli)
     voto.save()
-    Pelicula.objects.get(id=id_pelicula).votaciones.add(voto)
     return HttpResponseRedirect('/pelicula/'+id_pelicula)
 
 @login_required(login_url='/login')
 def eliminavoto(request, id_voto):
-    peli = Pelicula.objects.get(votaciones=id_voto)
     voto = Votacion.objects.get(id=id_voto)
     if request.user == voto.usuario:
             voto.delete()

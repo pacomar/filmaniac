@@ -43,7 +43,7 @@
 </div>
 <div id="recomendados">
 	<h3>Peliculas similares:</h3>
-	{% suggested as suggestions [limit 5]  %}
+	{% suggested as suggestions [limit 5 ]  %}
 	{% for suggested in suggestions %}
 		{{ suggested.object }}
 	{% endfor %}

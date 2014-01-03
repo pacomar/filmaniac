@@ -168,9 +168,8 @@ class Pelicula(models.Model):
 #Votacion
 class Votacion(models.Model):
 	voto = models.IntegerField(choices = ((1,1),(2,2),(3,3),(4,4),(5,5)))
-	pelicula 0 models.ForeignKey('Pelicula')
+	pelicula = models.ForeignKey('Pelicula')
 	usuario = models.ForeignKey(MyUser)
-	site = models.ForeignKey(Site)
 
 	def __unicode__(self):
 		return str(self.voto)
@@ -191,7 +190,7 @@ class ProductRecommendationProvider(RecommendationProvider):
         return rating.voto
 
     def get_rating_site(self, rating):
-        return rating.site
+        return 0
 
     def get_rating_user(self, rating):
         return rating.usuario

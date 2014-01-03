@@ -18,6 +18,7 @@ TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = []
 
+SITE_ID = 0
 
 # Application definition
 
@@ -30,7 +31,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'principal',
     'recommends',
-    'recommends.storage.djangoorm',
+    'recommends.storages.djangoorm',
 )
 
 MIDDLEWARE_CLASSES = (
